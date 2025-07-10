@@ -90,12 +90,12 @@ const Header = () => {
             {isAuthenticated ? (
               <>
                 {/* Jetons Display */}
-                <div className="flex items-center space-x-2 bg-gradient-to-r from-amber-50 to-yellow-50 px-3 py-2 rounded-xl border border-amber-200">
+                {/* <div className="flex items-center space-x-2 bg-gradient-to-r from-amber-50 to-yellow-50 px-3 py-2 rounded-xl border border-amber-200">
                   <CurrencyEuroIcon className="h-5 w-5 text-amber-600" />
                   <span className="text-sm font-semibold text-amber-800">
                     {user?.jetons || 0} jetons
                   </span>
-                </div>
+                </div> */}
 
                 {/* User Profile */}
                 <div className="flex items-center space-x-3">

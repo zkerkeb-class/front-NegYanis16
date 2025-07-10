@@ -237,7 +237,7 @@ export default function JetonsPage() {
         </div> */}
 
         {/* Test Cards Section */}
-        <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-8 border border-blue-200">
+        {/* <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-8 border border-blue-200">
           <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">
             💳 Cartes de test Stripe
           </h3>
@@ -266,7 +266,7 @@ export default function JetonsPage() {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
 
         {/* FAQ Section */}
         <div className="mt-12 bg-white rounded-2xl shadow-xl border border-gray-100 p-8">
