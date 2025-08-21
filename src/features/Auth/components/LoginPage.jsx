@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../AuthContext';
+import { AUTH_ENDPOINTS, postAuthConfig } from '../../../config/api';
 import {
   EnvelopeIcon,
   LockClosedIcon,
@@ -34,7 +35,7 @@ const LoginPage = () => {
     setLoading(true);
 
     try {
-      const response = await fetch('http://localhost:3001/api/auth/login', {
+      const response = await fetch(AUTH_ENDPOINTS.LOGIN, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
@@ -102,6 +103,8 @@ const LoginPage = () => {
                   value={formData.email}
                   onChange={handleChange}
                   required
+                  aria-label="Saisissez votre adresse email"
+                  aria-describedby="email-help"
                 />
               </div>
             </div>
@@ -124,11 +127,14 @@ const LoginPage = () => {
                   value={formData.password}
                   onChange={handleChange}
                   required
+                  aria-label="Saisissez votre mot de passe"
+                  aria-describedby="password-help"
                 />
                 <button
                   type="button"
                   className="absolute inset-y-0 right-0 pr-4 flex items-center"
                   onClick={() => setShowPassword(!showPassword)}
+                  aria-label={showPassword ? "Masquer le mot de passe" : "Afficher le mot de passe"}
                 >
                   {showPassword ? (
                     <EyeSlashIcon className="h-5 w-5 text-gray-400 hover:text-gray-600 transition-colors" />
@@ -144,6 +150,7 @@ const LoginPage = () => {
               type="submit"
               disabled={loading}
               className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white py-4 px-6 rounded-2xl font-semibold text-lg shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center"
+              aria-label={loading ? "Connexion en cours, veuillez patienter" : "Se connecter à votre compte"}
             >
               {loading ? (
                 <>
@@ -174,8 +181,9 @@ const LoginPage = () => {
           {/* Bouton Google */}
           <button
             type="button"
-            onClick={() => window.location.href = 'http://localhost:3001/api/google/google'}
+            onClick={() => window.location.href = AUTH_ENDPOINTS.GOOGLE_AUTH}
             className="mt-4 w-full flex items-center justify-center px-4 py-3 border border-gray-300 rounded-2xl shadow-sm bg-white text-gray-700 hover:bg-gray-50 transition-colors font-medium"
+            aria-label="Se connecter avec votre compte Google"
           >
             <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24">
               <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -200,6 +208,7 @@ const LoginPage = () => {
               <Link
                 to="/register"
                 className="font-semibold text-blue-600 hover:text-blue-700 transition-colors"
+                aria-label="Créer un nouveau compte"
               >
                 Créer un compte
               </Link>

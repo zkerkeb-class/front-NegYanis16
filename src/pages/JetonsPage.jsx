@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
+import { PAYMENT_ENDPOINTS } from '../config/api';
 import {
   CurrencyEuroIcon,
   SparklesIcon,
@@ -59,7 +60,7 @@ export default function JetonsPage() {
     setError(null);
 
     try {
-      const response = await fetch('http://localhost:3003/create-checkout-session', {
+      const response = await fetch(PAYMENT_ENDPOINTS.CREATE_SESSION, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

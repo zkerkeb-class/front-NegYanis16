@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { AUTH_ENDPOINTS, getAuthConfig } from '../../config/api';
 
 // Création du context
 const AuthContext = createContext();
@@ -25,11 +26,7 @@ export const AuthProvider = ({ children }) => {
     if (!token) return;
     setLoadingUser(true);
     try {
-      const res = await fetch('http://localhost:3001/api/auth/me', {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
+      const res = await fetch(AUTH_ENDPOINTS.ME, getAuthConfig(token));
       if (!res.ok) throw new Error('Erreur lors de la récupération du profil');
       const data = await res.json();
       setUser(data);
