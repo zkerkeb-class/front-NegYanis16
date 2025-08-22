@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../features/Auth/AuthContext';
+import { QUIZ_ENDPOINTS, getAuthConfig } from '../config/api';
 import {
   ArrowLeftIcon,
   ChartBarIcon,
@@ -28,9 +29,7 @@ const ResultsPage = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetch('http://localhost:5000/api/results/user', {
-      headers: { Authorization: `Bearer ${token}` }
-    })
+    fetch(QUIZ_ENDPOINTS.USER_RESULTS, getAuthConfig(token))
       .then(res => res.json())
       .then(data => setResults(Array.isArray(data) ? data : []))
       .catch(() => setResults([]))

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
+import { PAYMENT_ENDPOINTS, USER_ENDPOINTS, PRICE_TOKEN_MAPPING, putAuthConfig } from '../config/api';
 import {
   CheckCircleIcon,
   ExclamationTriangleIcon,
@@ -27,31 +28,18 @@ export default function SuccessPage() {
       if (!sessionId) return setLoading(false);
 
       try {
-        const res = await fetch(`http://localhost:3003/session/${sessionId}`);
+        const res = await fetch(PAYMENT_ENDPOINTS.GET_SESSION(sessionId));
         const data = await res.json();
         console.log("data", data);
 
         setSessionDetails(data);
 
         if (data.payment_status === 'paid' && !tokensAdded) {
-          const tokenMapping = {
-            500: 10,
-            900: 20,
-            1200: 30,
-          };
-
-          const jetons = tokenMapping[data.amount_total];
+          const jetons = PRICE_TOKEN_MAPPING[data.amount_total];
           const authToken = localStorage.getItem('token'); // ou sessionStorage
 
           if (jetons) {
-            const updateRes = await fetch('http://localhost:3001/api/user/tokens', {
-              method: 'PUT',
-              headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${authToken}`,
-              },
-              body: JSON.stringify({ jetons, operation: 'add' }),
-            });
+            const updateRes = await fetch(USER_ENDPOINTS.TOKENS, putAuthConfig(authToken, { jetons, operation: 'add' }));
 
             if (!updateRes.ok) {
               throw new Error("Erreur lors de l'ajout des jetons.");

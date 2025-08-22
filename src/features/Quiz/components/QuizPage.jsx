@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../Auth/AuthContext';
+import { USER_ENDPOINTS, QUIZ_ENDPOINTS, getAuthConfig, postAuthConfig, putAuthConfig } from '../../../config/api';
 import {
   CheckCircleIcon,
   XCircleIcon,
@@ -49,17 +50,10 @@ const QuizPage = () => {
         jetonsConsumedRef.current = true;
 
         // Consommer un jeton
-        const response = await fetch('http://localhost:3001/api/user/tokens', {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-          },
-          body: JSON.stringify({
-            jetons: 1,
-            operation: 'subtract'
-          })
-        });
+        const response = await fetch(USER_ENDPOINTS.TOKENS, putAuthConfig(token, {
+          jetons: 1,
+          operation: 'subtract'
+        }));
 
         if (!response.ok) {
           const errorData = await response.json();
@@ -90,11 +84,7 @@ const QuizPage = () => {
     setLoading(true);
     setError('');
     const params = new URLSearchParams({ level: classe, subject: matiere });
-    fetch(`http://localhost:5000/api/quiz/generate?${params.toString()}`, {
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
-    }) 
+    fetch(`${QUIZ_ENDPOINTS.GENERATE}?${params.toString()}`, getAuthConfig(token)) 
       .then(async (res) => {
         if (!res.ok) throw new Error('Erreur lors de la génération du quiz');
         const data = await res.json();
@@ -125,17 +115,10 @@ const QuizPage = () => {
     setError('');
     
     try {
-      const response = await fetch('http://localhost:5000/api/quiz/correct', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify({
-          quizId: quizId,
-          answers: Object.values(answers)
-        })
-      });
+      const response = await fetch(QUIZ_ENDPOINTS.CORRECT, postAuthConfig(token, {
+        quizId: quizId,
+        answers: Object.values(answers)
+      }));
 
       if (!response.ok) {
         throw new Error('Erreur lors de la correction du quiz');

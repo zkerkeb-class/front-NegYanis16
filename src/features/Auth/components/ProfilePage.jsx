@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../AuthContext';
+import { USER_ENDPOINTS, postAuthConfig } from '../../../config/api';
 import { useNavigate } from 'react-router-dom';
 import {
   UserIcon,
@@ -62,7 +63,7 @@ const ProfilePage = () => {
     setError('');
     setLoading(true);
     try {
-      const response = await fetch('http://localhost:3001/api/user/profile', {
+      const response = await fetch(USER_ENDPOINTS.PROFILE, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

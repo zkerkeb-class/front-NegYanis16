@@ -77,6 +77,7 @@ const HomePage = () => {
                 <Link 
                   to="/register" 
                   className="group bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 rounded-2xl font-semibold text-lg shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center"
+                  aria-label="Créer un compte pour commencer les quiz"
                 >
                   <RocketLaunchIcon className="h-6 w-6 mr-2 group-hover:rotate-12 transition-transform" />
                   Commencer maintenant
@@ -85,6 +86,7 @@ const HomePage = () => {
                 <Link 
                   to="/login" 
                   className="bg-white hover:bg-gray-50 text-gray-800 px-8 py-4 rounded-2xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 border-2 border-gray-200 hover:border-blue-300 flex items-center justify-center"
+                  aria-label="Se connecter à mon compte existant"
                 >
                   <PlayIcon className="h-5 w-5 mr-2" />
                   Se connecter
@@ -95,6 +97,7 @@ const HomePage = () => {
                 <Link 
                   to="/dashboard" 
                   className="group bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 rounded-2xl font-semibold text-lg shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center"
+                  aria-label="Accéder à mon tableau de bord"
                 >
                   <ChartBarIcon className="h-6 w-6 mr-2" />
                   Aller au tableau de bord
@@ -103,6 +106,7 @@ const HomePage = () => {
                 <Link 
                   to="/select-quiz" 
                   className="bg-white hover:bg-gray-50 text-gray-800 px-8 py-4 rounded-2xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 border-2 border-gray-200 hover:border-blue-300 flex items-center justify-center"
+                  aria-label="Commencer un nouveau quiz"
                 >
                   <AcademicCapIcon className="h-5 w-5 mr-2" />
                   Commencer un quiz

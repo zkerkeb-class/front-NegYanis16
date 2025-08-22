@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { AUTH_ENDPOINTS } from '../../../config/api';
 import { useAuth } from '../AuthContext';
 import {
   UserIcon,
@@ -57,7 +58,8 @@ const RegisterPage = () => {
     setSuccess('');
 
     try {
-      const response = await fetch('http://localhost:3001/api/auth/register', {
+      console.log(AUTH_ENDPOINTS.REGISTER);
+      const response = await fetch(AUTH_ENDPOINTS.REGISTER, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
@@ -123,6 +125,7 @@ const RegisterPage = () => {
                     value={formData.nom}
                     onChange={handleChange}
                     required
+                    aria-label="Saisissez votre nom de famille"
                   />
                 </div>
               </div>
@@ -143,6 +146,7 @@ const RegisterPage = () => {
                     value={formData.prenom}
                     onChange={handleChange}
                     required
+                    aria-label="Saisissez votre prénom"
                   />
                 </div>
               </div>
@@ -166,6 +170,7 @@ const RegisterPage = () => {
                   value={formData.email}
                   onChange={handleChange}
                   required
+                  aria-label="Saisissez votre adresse email"
                 />
               </div>
             </div>
@@ -188,11 +193,13 @@ const RegisterPage = () => {
                   value={formData.password}
                   onChange={handleChange}
                   required
+                  aria-label="Créez un mot de passe sécurisé"
                 />
                 <button
                   type="button"
                   className="absolute inset-y-0 right-0 pr-4 flex items-center"
                   onClick={() => setShowPassword(!showPassword)}
+                  aria-label={showPassword ? "Masquer le mot de passe" : "Afficher le mot de passe"}
                 >
                   {showPassword ? (
                     <EyeSlashIcon className="h-5 w-5 text-gray-400 hover:text-gray-600 transition-colors" />
@@ -219,6 +226,7 @@ const RegisterPage = () => {
                     className="w-full pl-12 pr-4 py-4 border border-gray-200 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 bg-white/50 backdrop-blur-sm appearance-none" 
                     value={formData.niveau} 
                     onChange={handleChange}
+                    aria-label="Sélectionnez votre niveau scolaire"
                   >
                     <option value="collège">Collège</option>
                     <option value="lycée">Lycée</option>
@@ -244,6 +252,7 @@ const RegisterPage = () => {
                     className="w-full pl-12 pr-4 py-4 border border-gray-200 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 bg-white/50 backdrop-blur-sm appearance-none" 
                     value={formData.classe} 
                     onChange={handleChange}
+                    aria-label="Sélectionnez votre classe"
                   >
                     {classesParNiveau[formData.niveau].map((classe) => (
                       <option key={classe} value={classe}>{classe}</option>
@@ -262,6 +271,7 @@ const RegisterPage = () => {
             <button 
               type="submit" 
               className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white py-4 px-6 rounded-2xl font-semibold text-lg shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center"
+              aria-label="Créer mon compte avec les informations saisies"
             >
               <SparklesIcon className="h-5 w-5 mr-2" />
               Créer mon compte
@@ -283,8 +293,9 @@ const RegisterPage = () => {
           {/* Bouton Google */}
           <button
             type="button"
-            onClick={() => window.location.href = 'http://localhost:3001/api/google/google'}
+            onClick={() => window.location.href = AUTH_ENDPOINTS.GOOGLE_AUTH}
             className="mt-4 w-full flex items-center justify-center px-4 py-3 border border-gray-300 rounded-2xl shadow-sm bg-white text-gray-700 hover:bg-gray-50 transition-colors font-medium"
+            aria-label="Créer un compte avec Google"
           >
             <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24">
               <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -319,6 +330,7 @@ const RegisterPage = () => {
               <Link
                 to="/login"
                 className="font-semibold text-blue-600 hover:text-blue-700 transition-colors"
+                aria-label="Se connecter à mon compte existant"
               >
                 Se connecter
               </Link>

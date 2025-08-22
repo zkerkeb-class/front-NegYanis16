@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '../features/Auth/AuthContext';
+import { AUTH_ENDPOINTS, postAuthConfig } from '../config/api';
 import { AcademicCapIcon } from '@heroicons/react/24/outline';
 
 const CompleteProfilePage = () => {
@@ -84,7 +85,7 @@ const CompleteProfilePage = () => {
 
     try {
       const currentToken = token || searchParams.get('token');
-      const response = await fetch('http://localhost:3001/api/google/complete-profile', {
+      const response = await fetch(AUTH_ENDPOINTS.COMPLETE_PROFILE, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

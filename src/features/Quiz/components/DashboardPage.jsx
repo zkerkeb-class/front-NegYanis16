@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../Auth/AuthContext';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import { AUTH_ENDPOINTS, QUIZ_ENDPOINTS, getAuthConfig } from '../../../config/api';
 import { 
   UserGroupIcon, 
   AcademicCapIcon, 
@@ -38,9 +39,7 @@ const DashboardPage = () => {
   useEffect(() => {
     if (!token) return;
     setLoading(true);
-    fetch('http://localhost:3001/api/auth/me', {
-      headers: { 'Authorization': `Bearer ${token}` }
-    })
+    fetch(AUTH_ENDPOINTS.ME, getAuthConfig(token))
       .then(async res => {
         if (!res.ok) throw new Error('Erreur lors de la récupération du profil');
         const data = await res.json();
@@ -58,9 +57,7 @@ const DashboardPage = () => {
     }
     console.log('Token disponible, récupération des résultats...');
     setResultsLoading(true);
-    fetch('http://localhost:5000/api/results/user', {
-      headers: { 'Authorization': `Bearer ${token}` }
-    })
+    fetch(QUIZ_ENDPOINTS.USER_RESULTS, getAuthConfig(token))
       .then(async res => {
         if (!res.ok) throw new Error('Erreur lors de la récupération des résultats');
         const data = await res.json();
