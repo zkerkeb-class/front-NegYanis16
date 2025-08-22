@@ -1,0 +1,61 @@
+name: Front CI (develop)
+
+on:
+  push:
+    branches: [ develop ]
+  pull_request:
+    branches: [ develop ]
+
+concurrency:
+  group: front-ci-develop-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Lint (optionnel)
+        run: npm run lint --if-present
+
+      - name: Tests (coverage)
+        env:
+          CI: true
+        run: |
+          if npm run | grep -q "test:ci"; then
+            npm run test:ci
+          else
+            npm test -- --watchAll=false --coverage --passWithNoTests
+          fi
+
+      - name: Upload coverage artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage
+          path: coverage/**
+          if-no-files-found: ignore
+
+      # ✅ Build de prod — échoue aussi sur les warnings quand CI=true (CRA)
+      - name: Build (CI strict)
+        env:
+          CI: true
+        run: |
+          if npm run | grep -q "build:ci"; then
+            npm run build:ci
+          else
+            npm run build
+          fi
