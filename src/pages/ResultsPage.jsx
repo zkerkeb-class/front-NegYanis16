@@ -11,12 +11,7 @@ import {
   StarIcon,
   ClockIcon,
   SparklesIcon,
-  ArrowTrendingUpIcon,
-  ArrowTrendingDownIcon,
-  MinusIcon,
   BookOpenIcon,
-  LightBulbIcon,
-  ExclamationTriangleIcon
 } from '@heroicons/react/24/solid';
 
 const ResultsPage = () => {

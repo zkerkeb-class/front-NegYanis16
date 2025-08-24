@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../AuthContext';
-import { AUTH_ENDPOINTS, postAuthConfig } from '../../../config/api';
+import { AUTH_ENDPOINTS } from '../../../config/api';
 import {
   EnvelopeIcon,
   LockClosedIcon,

@@ -9,8 +9,6 @@ import {
   ArrowRightIcon,
   PlayIcon,
   UserGroupIcon,
-  StarIcon,
-  LightBulbIcon,
   RocketLaunchIcon
 } from '@heroicons/react/24/solid';
 

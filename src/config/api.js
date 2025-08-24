@@ -5,8 +5,9 @@
 // URLs des services
 export const API_URLS = {
   AUTH_SERVICE: process.env.REACT_APP_AUTH_SERVICE_URL || 'http://localhost:3001',
-  QUIZ_SERVICE: process.env.REACT_APP_QUIZ_SERVICE_URL || 'http://localhost:5000', 
-  PAYMENT_SERVICE: process.env.REACT_APP_PAYMENT_SERVICE_URL || 'http://localhost:3003',
+  BDD_SERVICE: process.env.REACT_APP_BDD_SERVICE_URL || 'http://localhost:3002',
+  IA_SERVICE: process.env.REACT_APP_IA_SERVICE_URL || 'http://localhost:3003',
+  PAYMENT_SERVICE: process.env.REACT_APP_PAYMENT_SERVICE_URL || 'http://localhost:3004',
 };
 
 // Endpoints d'authentification
@@ -21,18 +22,21 @@ export const AUTH_ENDPOINTS = {
 
 // Endpoints utilisateur
 export const USER_ENDPOINTS = {
-  PROFILE: `${API_URLS.AUTH_SERVICE}/api/user/profile`,
-  TOKENS: `${API_URLS.AUTH_SERVICE}/api/user/tokens`,
+  PROFILE: `${API_URLS.BDD_SERVICE}/api/users/profile`,
+  UPDATE_PROFILE: `${API_URLS.BDD_SERVICE}/api/users/profile`,
+  TOKENS: `${API_URLS.BDD_SERVICE}/api/users/tokens`,
+  RESULTS: `${API_URLS.BDD_SERVICE}/api/users/results`,
 };
 
 // Endpoints quiz
 export const QUIZ_ENDPOINTS = {
-  GENERATE: `${API_URLS.QUIZ_SERVICE}/api/quiz/generate`,
-  CORRECT: `${API_URLS.QUIZ_SERVICE}/api/quiz/correct`,
-  USER_RESULTS: `${API_URLS.QUIZ_SERVICE}/api/results/user`,
+  GENERATE: `${API_URLS.IA_SERVICE}/api/quiz/generate`,
+  SUBMIT: `${API_URLS.IA_SERVICE}/api/quiz/submit`,
+  RESULTS: `${API_URLS.BDD_SERVICE}/api/quiz/results`,
+  USER_RESULTS: `${API_URLS.BDD_SERVICE}/api/users/results`,
 };
 
-// Endpoints paiement
+// Endpoints paiement (utilise le service de notification pour l'instant)
 export const PAYMENT_ENDPOINTS = {
   CREATE_SESSION: `${API_URLS.PAYMENT_SERVICE}/create-checkout-session`,
   GET_SESSION: (sessionId) => `${API_URLS.PAYMENT_SERVICE}/session/${sessionId}`,
@@ -59,6 +63,7 @@ export const getAuthHeaders = (token) => ({
 
 // Helper pour les requêtes GET avec auth
 export const getAuthConfig = (token) => ({
+  method: 'GET',
   headers: getAuthHeaders(token),
 });
 

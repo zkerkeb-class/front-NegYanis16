@@ -4,7 +4,6 @@ import { PAYMENT_ENDPOINTS, USER_ENDPOINTS, PRICE_TOKEN_MAPPING, putAuthConfig }
 import {
   CheckCircleIcon,
   ExclamationTriangleIcon,
-  ArrowRightIcon,
   CurrencyEuroIcon,
   SparklesIcon,
   HomeIcon,

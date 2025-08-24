@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../features/Auth/AuthContext';
 import {
   AcademicCapIcon,
-  BookOpenIcon,
   CurrencyEuroIcon,
   PlayIcon,
   SparklesIcon,
@@ -16,10 +15,9 @@ import {
 } from '@heroicons/react/24/solid';
 
 const SelectQuizPage = () => {
-  const { token, user } = useAuth();
+  const { user } = useAuth();
   const navigate = useNavigate();
   const [matiere, setMatiere] = useState('Maths');
-  const [loading, setLoading] = useState(false);
 
   const matieres = [
     { 

@@ -29,7 +29,6 @@ const QuizPage = () => {
   const [result, setResult] = useState(null);
   const [quizId, setQuizId] = useState(null);
   const [jetonsChecked, setJetonsChecked] = useState(false);
-  const [currentQuestion, setCurrentQuestion] = useState(0);
   const { token, user, fetchUserProfile } = useAuth();
   const jetonsConsumedRef = useRef(false);
 
@@ -74,7 +73,7 @@ const QuizPage = () => {
     };
 
     checkAndConsumeJetons();
-  }, [token, user, jetonsChecked]);
+  }, [token, user, jetonsChecked, fetchUserProfile]);
 
   useEffect(() => {
     if (!matiere || !classe || !jetonsChecked) {
