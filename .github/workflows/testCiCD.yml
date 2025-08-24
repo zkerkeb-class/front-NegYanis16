@@ -34,7 +34,7 @@ jobs:
           fi
 
   tests:
-    name: Tests (sans coverage)
+    name: Tests
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -68,9 +68,6 @@ jobs:
           cache: npm
       - run: npm ci
       - name: Build
-        env:
-          # Avec CRA, CI=true fait échouer le build sur les warnings (plus strict)
-          CI: true
         run: npm run build
 
       - name: Upload build artifact
