@@ -73,7 +73,7 @@ const QuizPage = () => {
     };
 
     checkAndConsumeJetons();
-  }, [token, user, jetonsChecked]);
+  }, [token, user, jetonsChecked, fetchUserProfile]);
 
   useEffect(() => {
     if (!matiere || !classe || !jetonsChecked) {
