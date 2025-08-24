@@ -31,7 +31,7 @@ export const USER_ENDPOINTS = {
 // Endpoints quiz - Déjà corrects, mais je corrige 'submit' en 'correct'
 export const QUIZ_ENDPOINTS = {
   GENERATE: `${API_URLS.IA_SERVICE}/api/quiz/generate`,
-  SUBMIT: `${API_URLS.IA_SERVICE}/api/quiz/correct`,
+  CORRECT: `${API_URLS.IA_SERVICE}/api/quiz/correct`,
   RESULTS: `${API_URLS.IA_SERVICE}/api/results/moyennes`,
   USER_RESULTS: `${API_URLS.IA_SERVICE}/api/results/user`,
 };
