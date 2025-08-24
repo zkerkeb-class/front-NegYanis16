@@ -6,16 +6,11 @@ import {
   Bars3Icon,
   XMarkIcon,
   UserCircleIcon,
-  CubeTransparentIcon,
-  CodeBracketSquareIcon,
-  Square3Stack3DIcon,
   PowerIcon,
   AcademicCapIcon,
   ChartBarIcon,
   CurrencyEuroIcon,
   HomeIcon,
-  BellIcon,
-  Cog6ToothIcon
 } from '@heroicons/react/24/solid';
 
 const Header = () => {

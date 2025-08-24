@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '../features/Auth/AuthContext';
-import { AUTH_ENDPOINTS, postAuthConfig } from '../config/api';
+import { AUTH_ENDPOINTS} from '../config/api';
 import { AcademicCapIcon } from '@heroicons/react/24/outline';
 
 const CompleteProfilePage = () => {
