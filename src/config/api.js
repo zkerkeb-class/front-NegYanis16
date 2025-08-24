@@ -33,6 +33,7 @@ export const QUIZ_ENDPOINTS = {
   GENERATE: `${API_URLS.IA_SERVICE}/api/quiz/generate`,
   SUBMIT: `${API_URLS.IA_SERVICE}/api/quiz/submit`,
   RESULTS: `${API_URLS.BDD_SERVICE}/api/quiz/results`,
+  USER_RESULTS: `${API_URLS.BDD_SERVICE}/api/users/results`,
 };
 
 // Endpoints paiement (utilise le service de notification pour l'instant)

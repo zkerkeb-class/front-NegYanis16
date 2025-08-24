@@ -2,13 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../Auth/AuthContext';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { AUTH_ENDPOINTS, QUIZ_ENDPOINTS, getAuthConfig } from '../../../config/api';
-import { 
-  UserGroupIcon, 
+import {  
   AcademicCapIcon, 
-  StarIcon, 
   CurrencyEuroIcon,
   ChartBarIcon,
-  ClockIcon,
   TrophyIcon,
   LightBulbIcon,
   ArrowTrendingUpIcon,
@@ -18,7 +15,7 @@ import {
 } from "@heroicons/react/24/solid";
 
 const DashboardPage = () => {
-  const { logout, token, login } = useAuth();
+  const { token, login } = useAuth();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [user, setUser] = useState(null);
@@ -72,11 +69,6 @@ const DashboardPage = () => {
       })
       .finally(() => setResultsLoading(false));
   }, [token]);
-
-  const handleLogout = () => {
-    logout();
-    navigate('/');
-  };
 
   const handleStartQuiz = () => {
     if (!user) return;
