@@ -10,52 +10,74 @@ concurrency:
   group: front-ci-develop-${{ github.ref }}
   cancel-in-progress: true
 
+permissions:
+  contents: read
+
 jobs:
-  ci:
+  lint:
+    name: Lint
     runs-on: ubuntu-latest
-    timeout-minutes: 20
-
+    timeout-minutes: 10
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: npm
+      - run: npm ci
+      - name: Run ESLint (optionnel)
+        run: |
+          if npm run | grep -q "^  lint"; then
+            npm run lint
+          else
+            echo "No lint script, skipping."
+          fi
 
-      - name: Install deps
-        run: npm ci
-
-      - name: Lint (optionnel)
-        run: npm run lint --if-present
-
-      - name: Tests (coverage)
+  tests:
+    name: Tests (sans coverage)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - name: Run tests
         env:
           CI: true
         run: |
           if npm run | grep -q "test:ci"; then
-            npm run test:ci
+            # Si tu as un script test:ci, on l'utilise quand même (sans coverage)
+            npm run test:ci -- --watchAll=false --passWithNoTests
           else
-            npm test -- --watchAll=false --coverage --passWithNoTests
+            npm test -- --watchAll=false --passWithNoTests
           fi
 
-      - name: Upload coverage artifact
-        if: always()
+  build:
+    name: Build (strict)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    needs: [lint, tests]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - name: Build
+        env:
+          # Avec CRA, CI=true fait échouer le build sur les warnings (plus strict)
+          CI: true
+        run: npm run build
+
+      - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
-          name: coverage
-          path: coverage/**
-          if-no-files-found: ignore
-
-      # ✅ Build de prod — échoue aussi sur les warnings quand CI=true (CRA)
-      - name: Build (CI strict)
-        env:
-          CI: true
-        run: |
-          if npm run | grep -q "build:ci"; then
-            npm run build:ci
-          else
-            npm run build
-          fi
+          name: build
+          path: |
+            build/**
+            dist/**
+          if-no-files-found: warn
