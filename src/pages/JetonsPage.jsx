@@ -10,8 +10,6 @@ import {
   CheckCircleIcon,
   ExclamationTriangleIcon,
   StarIcon,
-  BoltIcon,
-  GiftIcon
 } from '@heroicons/react/24/solid';
 
 const offers = [

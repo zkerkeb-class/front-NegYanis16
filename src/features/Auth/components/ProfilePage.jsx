@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../AuthContext';
-import { USER_ENDPOINTS, postAuthConfig } from '../../../config/api';
+import { USER_ENDPOINTS} from '../../../config/api';
 import { useNavigate } from 'react-router-dom';
 import {
   UserIcon,
@@ -12,10 +12,7 @@ import {
   ArrowLeftIcon,
   PencilIcon,
   ShieldCheckIcon,
-  SparklesIcon,
   CurrencyEuroIcon,
-  ClockIcon,
-  ChartBarIcon
 } from '@heroicons/react/24/solid';
 
 const niveaux = [
