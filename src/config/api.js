@@ -7,7 +7,7 @@ export const API_URLS = {
   AUTH_SERVICE: process.env.REACT_APP_AUTH_SERVICE_URL || 'http://localhost:3001',
   BDD_SERVICE: process.env.REACT_APP_BDD_SERVICE_URL || 'http://localhost:3002',
   IA_SERVICE: process.env.REACT_APP_IA_SERVICE_URL || 'http://localhost:3003',
-  PAYMENT_SERVICE: process.env.REACT_APP_PAYMENT_SERVICE_URL || 'http://localhost:3004',
+  NOTIFICATION_SERVICE: process.env.REACT_APP_NOTIFICATION_SERVICE_URL || 'http://localhost:3004',
 };
 
 // Endpoints d'authentification
@@ -20,26 +20,26 @@ export const AUTH_ENDPOINTS = {
   COMPLETE_PROFILE: `${API_URLS.AUTH_SERVICE}/api/google/complete-profile`,
 };
 
-// Endpoints utilisateur
+// Endpoints utilisateur - Maintenant via le service IA (backend principal)
 export const USER_ENDPOINTS = {
-  PROFILE: `${API_URLS.BDD_SERVICE}/api/users/profile`,
-  UPDATE_PROFILE: `${API_URLS.BDD_SERVICE}/api/users/profile`,
-  TOKENS: `${API_URLS.BDD_SERVICE}/api/users/tokens`,
-  RESULTS: `${API_URLS.BDD_SERVICE}/api/users/results`,
+  PROFILE: `${API_URLS.IA_SERVICE}/api/users/profile`,
+  UPDATE_PROFILE: `${API_URLS.IA_SERVICE}/api/users/profile`,
+  TOKENS: `${API_URLS.IA_SERVICE}/api/users/tokens`,
+  RESULTS: `${API_URLS.IA_SERVICE}/api/results/user`,
 };
 
-// Endpoints quiz
+// Endpoints quiz - Déjà corrects, mais je corrige 'submit' en 'correct'
 export const QUIZ_ENDPOINTS = {
   GENERATE: `${API_URLS.IA_SERVICE}/api/quiz/generate`,
-  SUBMIT: `${API_URLS.IA_SERVICE}/api/quiz/submit`,
-  RESULTS: `${API_URLS.BDD_SERVICE}/api/quiz/results`,
-  USER_RESULTS: `${API_URLS.BDD_SERVICE}/api/users/results`,
+  SUBMIT: `${API_URLS.IA_SERVICE}/api/quiz/correct`,
+  RESULTS: `${API_URLS.IA_SERVICE}/api/results/moyennes`,
+  USER_RESULTS: `${API_URLS.IA_SERVICE}/api/results/user`,
 };
 
 // Endpoints paiement (utilise le service de notification pour l'instant)
 export const PAYMENT_ENDPOINTS = {
-  CREATE_SESSION: `${API_URLS.PAYMENT_SERVICE}/create-checkout-session`,
-  GET_SESSION: (sessionId) => `${API_URLS.PAYMENT_SERVICE}/session/${sessionId}`,
+  CREATE_SESSION: `${API_URLS.NOTIFICATION_SERVICE}/create-checkout-session`,
+  GET_SESSION: (sessionId) => `${API_URLS.NOTIFICATION_SERVICE}/session/${sessionId}`,
 };
 
 // Configuration des prix et jetons
