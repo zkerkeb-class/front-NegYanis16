@@ -101,7 +101,7 @@ describe('HomePage', () => {
         </TestWrapper>
       );
 
-      const commencerLink = screen.getByRole('link', { name: /commencer maintenant/i });
+      const commencerLink = screen.getByRole('link', { name: /créer un compte pour commencer les quiz/i });
       expect(commencerLink).toHaveAttribute('href', '/register');
     });
   });
@@ -124,7 +124,7 @@ describe('HomePage', () => {
         </TestWrapper>
       );
 
-      const dashboardLink = screen.getByRole('link', { name: /aller au tableau de bord/i });
+      const dashboardLink = screen.getByRole('link', { name: /accéder à mon tableau de bord/i });
       expect(dashboardLink).toHaveAttribute('href', '/dashboard');
     });
   });
