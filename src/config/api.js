@@ -7,7 +7,7 @@ export const API_URLS = {
   AUTH_SERVICE: process.env.REACT_APP_AUTH_SERVICE_URL || 'http://localhost:3001',
   BDD_SERVICE: process.env.REACT_APP_BDD_SERVICE_URL || 'http://localhost:3002',
   IA_SERVICE: process.env.REACT_APP_IA_SERVICE_URL || 'http://localhost:3003',
-  NOTIFICATION_SERVICE: process.env.REACT_APP_NOTIFICATION_SERVICE_URL || 'http://localhost:3004',
+  PAYMENT_SERVICE: process.env.REACT_APP_PAYMENT_SERVICE_URL || 'http://localhost:3004',
 };
 
 // Endpoints d'authentification
@@ -38,8 +38,8 @@ export const QUIZ_ENDPOINTS = {
 
 // Endpoints paiement (utilise le service de notification pour l'instant)
 export const PAYMENT_ENDPOINTS = {
-  CREATE_SESSION: `${API_URLS.NOTIFICATION_SERVICE}/create-checkout-session`,
-  GET_SESSION: (sessionId) => `${API_URLS.NOTIFICATION_SERVICE}/session/${sessionId}`,
+  CREATE_SESSION: `${API_URLS.PAYMENT_SERVICE}/create-checkout-session`,
+  GET_SESSION: (sessionId) => `${API_URLS.PAYMENT_SERVICE}/session/${sessionId}`,
 };
 
 // Configuration des prix et jetons
