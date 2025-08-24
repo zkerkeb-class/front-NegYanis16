@@ -1,0 +1,80 @@
+name: Front CI (develop)
+
+on:
+  push:
+    branches: [ develop ]
+  pull_request:
+    branches: [ develop ]
+
+concurrency:
+  group: front-ci-develop-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - name: Run ESLint (optionnel)
+        run: |
+          if npm run | grep -q "^  lint"; then
+            npm run lint
+          else
+            echo "No lint script, skipping."
+          fi
+
+  tests:
+    name: Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - name: Run tests
+        env:
+          CI: true
+        run: |
+          if npm run | grep -q "test:ci"; then
+            # Si tu as un script test:ci, on l'utilise quand même (sans coverage)
+            npm run test:ci -- --watchAll=false --passWithNoTests
+          else
+            npm test -- --watchAll=false --passWithNoTests
+          fi
+
+  build:
+    name: Build (strict)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    needs: [lint, tests]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - name: Build
+        run: npm run build
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: build
+          path: |
+            build/**
+            dist/**
+          if-no-files-found: warn
