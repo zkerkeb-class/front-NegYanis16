@@ -22,9 +22,9 @@ export const AUTH_ENDPOINTS = {
 
 // Endpoints utilisateur - Maintenant via le service IA (backend principal)
 export const USER_ENDPOINTS = {
-  PROFILE: `${API_URLS.IA_SERVICE}/api/users/profile`,
-  UPDATE_PROFILE: `${API_URLS.IA_SERVICE}/api/users/profile`,
-  TOKENS: `${API_URLS.IA_SERVICE}/api/users/tokens`,
+  PROFILE: `${API_URLS.AUTH_SERVICE}/api/user/profile`,
+  UPDATE_PROFILE: `${API_URLS.AUTH_SERVICE}/api/user/profile`,
+  TOKENS: `${API_URLS.AUTH_SERVICE}/api/user/tokens`,
   RESULTS: `${API_URLS.IA_SERVICE}/api/results/user`,
 };
 
